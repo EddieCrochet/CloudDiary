@@ -6,3 +6,15 @@
 
 <h1>Diary</h1>
 
+@if(ViewBag.DiaryEntries != null)
+{
+    <ul>
+        @foreach(DiaryEntry item in ViewBag.DiaryEntries)
+        {
+            <li>
+                @item.Created.ToString("dd/MM/yyyy HH:mm") -> <b>@item.Text</b>
+                <hr />
+            </li>
+        }
+    </ul>
+}
