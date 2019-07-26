@@ -32,9 +32,16 @@
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Diary" asp-action="Index">Diary</a>
-                        </li>
+
+                        @if (Context.User.Identity.IsAuthenticated)
+                            //I only want to show this tab in the nav if the user is logged in
+                            //then I want to access only the users info
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Diary" asp-action="Index">Diary</a>
+                            </li>
+                        }
+
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
                         </li>
