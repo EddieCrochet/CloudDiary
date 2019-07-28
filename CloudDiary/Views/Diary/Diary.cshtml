@@ -1,4 +1,6 @@
-﻿
+﻿@using CloudDiary.Models
+@model DiaryEntry
+
 @{
     ViewData["Title"] = "Diary";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -6,10 +8,27 @@
 
 <h1>Diary</h1>
 
-@if(ViewBag.DiaryEntries != null)
+@using (Html.BeginForm("Index", "Diary", new { ReturnUrl = ViewBag.ReturnUrl }))
+{
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    <div class="form-group">
+        @Html.LabelFor(m => m.Text, new { @class="col-md-2 control-label"})
+        <div class="col-md-10">
+            @Html.TextBoxFor(m=>m.Text, new { @class="form-control"})
+            @Html.ValidationMessageFor(m=>m.Text,"MAKE A NEW ENTRY A DOUBLE DOGG DARE YA!!", new { @class = "text-danger" })
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" value="Add Diary Entry" class="btn btn-info" />
+        </div>
+    </div>
+}
+
+@if (ViewBag.DiaryEntries != null)
 {
     <ul>
-        @foreach(DiaryEntry item in ViewBag.DiaryEntries)
+        @foreach (DiaryEntry item in ViewBag.DiaryEntries)
         {
             <li>
                 @item.Created.ToString("dd/MM/yyyy HH:mm") -> <b>@item.Text</b>
