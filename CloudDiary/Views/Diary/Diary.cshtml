@@ -8,6 +8,7 @@
 
 <h1>Diary</h1>
 
+<!--Create form for diary entries-->
 @using (Html.BeginForm("Index", "Diary", new { ReturnUrl = ViewBag.ReturnUrl }))
 {
     @Html.ValidationSummary(true, "", new { @class = "text-danger" })

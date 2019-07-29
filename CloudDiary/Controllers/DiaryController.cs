@@ -37,6 +37,11 @@ namespace CloudDiary.Controllers
                 return View("Diary", model);
             }
 
+            var diaryEntries = new List<DiaryEntry>();
+            diaryEntries.Add(new DiaryEntry { Created = DateTime.Now, Text = model.Text });
+
+            ViewBag.DiaryEntries = diaryEntries;
+
             //ToDo: storing diary entry in database
 
             return View("Diary");
