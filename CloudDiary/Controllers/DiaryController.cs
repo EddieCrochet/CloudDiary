@@ -25,5 +25,21 @@ namespace CloudDiary.Controllers
 
             return View("Diary");
         }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Index(AddDiaryEntryViewModel model)
+        {
+            if(!ModelState.IsValid)
+            {
+                //if the model has errors it will return the viewModel
+                //which will display the form with the current datum in it
+                return View("Diary", model);
+            }
+
+            //ToDo: storing diary entry in database
+
+            return View("Diary");
+        }
     }
 }
