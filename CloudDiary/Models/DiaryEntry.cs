@@ -20,7 +20,6 @@ namespace CloudDiary.Models
 
         public string UserId { get; set; }
 
-        //no applicationUser class?
         public IdentityUser User { get; set; }
     }
 }
