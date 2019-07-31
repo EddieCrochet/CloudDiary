@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using CloudDiary.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNet.Identity;
 
 namespace CloudDiary.Controllers
 {
