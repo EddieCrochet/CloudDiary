@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using CloudDiary.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Identity;
 
 namespace CloudDiary.Controllers
 {
@@ -36,6 +37,15 @@ namespace CloudDiary.Controllers
                 //which will display the form with the current datum in it
                 return View("Diary", model);
             }
+
+            var diaryEntry = new DiaryEntry()
+            {
+                Id = Guid.NewGuid(),
+                UserId = User.Identity.GetUserId(),
+                Created = DateTime.Now,
+                Text = model.Text
+
+            };
 
             var diaryEntries = new List<DiaryEntry>();
             diaryEntries.Add(new DiaryEntry { Created = DateTime.Now, Text = model.Text });
