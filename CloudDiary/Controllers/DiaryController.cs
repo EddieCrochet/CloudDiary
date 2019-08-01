@@ -6,6 +6,8 @@ using CloudDiary.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNet.Identity;
+using CloudDiary.Data;
+using Microsoft.EntityFrameworkCore;
 
 namespace CloudDiary.Controllers
 {
@@ -44,13 +46,22 @@ namespace CloudDiary.Controllers
                 UserId = User.Identity.GetUserId(),
                 Created = DateTime.Now,
                 Text = model.Text
-
             };
 
-            var diaryEntries = new List<DiaryEntry>();
-            diaryEntries.Add(new DiaryEntry { Created = DateTime.Now, Text = model.Text });
+            var options = new DbContextOptions<ApplicationDbContext>();
 
-            ViewBag.DiaryEntries = diaryEntries;
+            using (var context = new ApplicationDbContext(options))
+            {
+                context.DiaryEntries.Add(diaryEntry);
+                context.SaveChanges();
+            }
+
+            //The below old code simple added to the index view only the entry that was just created
+
+            //    var diaryEntries = new List<DiaryEntry>();
+            //diaryEntries.Add(new DiaryEntry { Created = DateTime.Now, Text = model.Text });
+
+            //ViewBag.DiaryEntries = diaryEntries;
 
             //ToDo: storing diary entry in database
 
