@@ -37,6 +37,7 @@ namespace CloudDiary
 
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(Configuration["ConnectionStrings:DefaultConnection"]));
+            services.AddScoped<ApplicationDbContext>();
             services.AddDefaultIdentity<IdentityUser>()
                 .AddDefaultUI(UIFramework.Bootstrap4)
                 .AddEntityFrameworkStores<ApplicationDbContext>();
