@@ -19,7 +19,7 @@ namespace CloudDiary.Data
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlServer("Data Source=CloudDiary.db");
+            optionsBuilder.UseSqlServer("Server = (localdb)\\mssqllocaldb; Database = CloudDiary; Trusted_Connection = True; MultipleActiveResultSets = true");
             //configuring the context to the database
         }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
