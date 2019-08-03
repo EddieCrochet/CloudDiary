@@ -19,6 +19,8 @@ namespace CloudDiary.Data
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
+            //optionsBuilder.UseSqlServer("Data Source=aspnet-CloudDiary-ECA82E00-BCC1-43DE-B377-B375CA7F7EE6.db");
+            //configuring the context to the database
         }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
