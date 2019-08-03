@@ -9,6 +9,7 @@
 
   <ItemGroup>
     <PackageReference Include="DotNetOpenAuth" Version="4.3.4.13329" />
+    <PackageReference Include="EntityFramework" Version="6.2.0" />
     <PackageReference Include="Microsoft.AspNet.Identity.Core" Version="2.2.2" />
     <PackageReference Include="Microsoft.AspNet.Identity.EntityFramework" Version="2.2.2" />
     <PackageReference Include="Microsoft.AspNetCore.App" />
