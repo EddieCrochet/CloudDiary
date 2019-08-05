@@ -77,7 +77,7 @@ namespace CloudDiary.Controllers
 
             //ToDo: storing diary entry in database
 
-            return View("Diary");
+            return RedirectToAction("Index");
         }
     }
 }
