@@ -52,7 +52,7 @@ namespace CloudDiary.Controllers
 
             using (var context = new ApplicationDbContext(options))
             {
-                context.DiaryEntry.Add(diaryEntry);
+                context.DiaryEntries.Add(diaryEntry);
                 context.SaveChanges();
             }
 

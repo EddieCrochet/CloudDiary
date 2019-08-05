@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity.Infrastructure;
 using System.Text;
 using CloudDiary.Models;
 using Microsoft.AspNetCore.Identity;
@@ -10,7 +11,7 @@ namespace CloudDiary.Data
 {
     public class ApplicationDbContext : IdentityDbContext<IdentityUser>
     {
-        public DbSet<DiaryEntry> DiaryEntry { get; set; }
+        public DbSet<DiaryEntry> DiaryEntries { get; set; }
 
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
             : base(options)
@@ -24,7 +25,9 @@ namespace CloudDiary.Data
         }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            base.OnModelCreating(modelBuilder);
+            //using fluent API to map database table
+            modelBuilder.Entity<DiaryEntry>()
+                .ToTable("DiaryEntries");
         }
     }
 }
