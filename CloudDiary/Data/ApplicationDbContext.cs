@@ -25,6 +25,8 @@ namespace CloudDiary.Data
         }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            base.OnModelCreating(modelBuilder);
+
             //using fluent API to map database table
             modelBuilder.Entity<DiaryEntry>()
                 .ToTable("DiaryEntries");
