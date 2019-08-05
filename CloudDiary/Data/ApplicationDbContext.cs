@@ -10,7 +10,7 @@ namespace CloudDiary.Data
 {
     public class ApplicationDbContext : IdentityDbContext<IdentityUser>
     {
-        public DbSet<DiaryEntry> DE { get; set; }
+        public DbSet<DiaryEntry> DiaryEntry { get; set; }
 
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
             : base(options)
