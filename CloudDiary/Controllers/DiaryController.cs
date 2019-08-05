@@ -18,13 +18,25 @@ namespace CloudDiary.Controllers
         [Authorize]
         public IActionResult Index()
         {
-            var diaryEntries = new List<DiaryEntry>();
-            diaryEntries.Add(new DiaryEntry() { Created = DateTime.Now, Text = "Just feel like coding today haha" });
-            diaryEntries.Add(new DiaryEntry() { Created = DateTime.Now.AddDays(-1),
-                Text = "Rained all day great thats a happy person lolol" });
-            diaryEntries.Add(new DiaryEntry() { Created = DateTime.Now.AddDays(-2), Text = "What a fun project" });
+            //this is simply how I created test data
+            //var diaryEntries = new List<DiaryEntry>();
+            //diaryEntries.Add(new DiaryEntry() { Created = DateTime.Now, Text = "Just feel like coding today haha" });
+            //diaryEntries.Add(new DiaryEntry() { Created = DateTime.Now.AddDays(-1),
+            //    Text = "Rained all day great thats a happy person lolol" });
+            //diaryEntries.Add(new DiaryEntry() { Created = DateTime.Now.AddDays(-2), Text = "What a fun project" });
 
-            ViewBag.DiaryEntries = diaryEntries;
+            var options = new DbContextOptions<ApplicationDbContext>();
+            using (var context = new ApplicationDbContext(options))
+            {
+                var UserId = User.Identity.GetUserId();
+
+                //linq query to get entries from database and see newest
+                var diaryEntries = context.DiaryEntries
+                    .Where(d => d.UserId == UserId)
+                    .OrderByDescending(d => d.Created);
+
+                ViewBag.DiaryEntries = diaryEntries.ToList();
+            }
 
             return View("Diary");
         }
