@@ -42,44 +42,46 @@ namespace CloudDiary.Controllers
         //    return View("Diary");
         //}
 
-        //[HttpPost]
-        //[ValidateAntiForgeryToken]
-        //public ActionResult Index(AddDiaryEntryViewModel model)
-        //{
-        //    if (!ModelState.IsValid)
-        //    {
-        //        //if the model has errors it will return the viewModel
-        //        //which will display the form with the current datum in it
-        //        return View("Diary", model);
-        //    }
+            //the above was old code from the diaryController
 
-        //    var diaryEntry = new DiaryEntry()
-        //    {
-        //        Id = Guid.NewGuid(),
-        //        UserId = User.Identity.GetUserId(),
-        //        Created = DateTime.Now,
-        //        Text = model.Text
-        //    };
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Index(AddDiaryEntryViewModel model)
+        {
+            if (!ModelState.IsValid)
+            {
+                //if the model has errors it will return the viewModel
+                //which will display the form with the current datum in it
+                return View("Diary", model);
+            }
 
-        //    var options = new DbContextOptions<ApplicationDbContext>();
+            var diaryEntry = new DiaryEntry()
+            {
+                Id = Guid.NewGuid(),
+                UserId = User.Identity.GetUserId(),
+                Created = DateTime.Now,
+                Text = model.Text
+            };
 
-        //    using (var context = new ApplicationDbContext(options))
-        //    {
-        //        context.DiaryEntries.Add(diaryEntry);
-        //        context.SaveChanges();
-        //    }
+            var options = new DbContextOptions<ApplicationDbContext>();
 
-        //    //The below old code simple added to the index view only the entry that was just created
+            using (var context = new ApplicationDbContext(options))
+            {
+                context.DiaryEntries.Add(diaryEntry);
+                context.SaveChanges();
+            }
 
-        //    //    var diaryEntries = new List<DiaryEntry>();
-        //    //diaryEntries.Add(new DiaryEntry { Created = DateTime.Now, Text = model.Text });
+            //The below old code simple added to the index view only the entry that was just created
 
-        //    //ViewBag.DiaryEntries = diaryEntries;
+            //    var diaryEntries = new List<DiaryEntry>();
+            //diaryEntries.Add(new DiaryEntry { Created = DateTime.Now, Text = model.Text });
 
-        //    //ToDo: storing diary entry in database
+            //ViewBag.DiaryEntries = diaryEntries;
 
-        //    return RedirectToAction("Index");
-        //}
+            //ToDo: storing diary entry in database
+
+            return RedirectToAction("Index");
+        }
 
         public IActionResult Privacy()
         {
@@ -91,6 +93,18 @@ namespace CloudDiary.Controllers
         {
             if(User.Identity.IsAuthenticated)
             {
+                var options = new DbContextOptions<ApplicationDbContext>();
+                using (var context = new ApplicationDbContext(options))
+                {
+                    var UserId = User.Identity.GetUserId();
+
+                    //linq query to get entries from database and see newest
+                    var diaryEntries = context.DiaryEntries
+                        .Where(d => d.UserId == UserId)
+                        .OrderByDescending(d => d.Created);
+
+                    ViewBag.DiaryEntries = diaryEntries.ToList();
+                }
                 return View("Diary");
             }
             return View();
